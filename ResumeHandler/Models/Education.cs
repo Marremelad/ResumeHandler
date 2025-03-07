@@ -23,5 +23,5 @@ public class Education
 
     public required DateOnly StartDate { get; set; }
 
-    public DateOnly EndDate { get; set; }
+    public DateOnly? EndDate { get; set; }
 }

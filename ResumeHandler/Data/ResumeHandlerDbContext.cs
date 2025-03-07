@@ -11,9 +11,7 @@ public class ResumeHandlerDbContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
-
-    public DbSet<ContactInformation> ContactInformation { get; set; }
-
+    
     public DbSet<Education> Educations { get; set; }
 
     public DbSet<WorkExperience> WorkExperiences { get; set; }
