@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ResumeHandler.Data;
+using ResumeHandler.Endpoints;
+using ResumeHandler.Services;
 
 namespace ResumeHandler;
 
@@ -21,6 +23,8 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
 
+        builder.Services.AddScoped<UserService>();
+        
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -33,6 +37,8 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
+        
+        UserEndpoint.RegisterEndpoints(app);
         
         app.Run();
     }

@@ -1,6 +1,8 @@
-﻿namespace ResumeHandler.Services;
+﻿using ResumeHandler.Data;
 
-public class UserService
+namespace ResumeHandler.Services;
+
+public class UserService(ResumeHandlerDbContext context)
 {
     
 }
