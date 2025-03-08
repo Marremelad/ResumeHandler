@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ResumeHandler.Data;
 using ResumeHandler.Endpoints;
+using ResumeHandler.Models;
 using ResumeHandler.Services;
 
 namespace ResumeHandler;
@@ -24,6 +25,7 @@ public class Program
         });
 
         builder.Services.AddScoped<UserService>();
+        builder.Services.AddScoped<EducationService>();
         
         var app = builder.Build();
 
@@ -39,6 +41,7 @@ public class Program
         app.UseAuthorization();
         
         UserEndpoint.RegisterEndpoints(app);
+        EducationEndpoint.RegisterEndpoints(app);
         
         app.Run();
     }
