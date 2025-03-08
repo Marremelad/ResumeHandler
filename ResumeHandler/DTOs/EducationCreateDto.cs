@@ -21,10 +21,10 @@ public class EducationCreateDto
     public string? Description { get; set; }
 
     [Required]
-    [ValidDateOnly]
-    public required DateOnly StartDate { get; set; }
+    [ValidStartDate]
+    public required string StartDate { get; set; } // Was set to DateOnly.
 
     [Required]
-    [ValidDateOnly]
-    public DateOnly? EndDate { get; set; }
+    [ValidEndDate]
+    public string? EndDate { get; set; } // Was set to DateOnly.
 }

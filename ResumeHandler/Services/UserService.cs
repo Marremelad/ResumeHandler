@@ -20,8 +20,8 @@ public class UserService(ResumeHandlerDbContext context)
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     Description = u.Description,
-                    Educations = CreateEducationDto(u.Educations!),
-                    WorkExperiences = CreateWorkExperienceDto(u.WorkExperiences!)
+                    Educations = CreateClass.CreateEducationDto(u.Educations!),
+                    WorkExperiences = CreateClass.CreateWorkExperienceDto(u.WorkExperiences!)
                 })
                 .ToListAsync();
 
@@ -44,8 +44,8 @@ public class UserService(ResumeHandlerDbContext context)
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     Description = u.Description,
-                    Educations = CreateEducationDto(u.Educations!),
-                    WorkExperiences = CreateWorkExperienceDto(u.WorkExperiences!)
+                    Educations = CreateClass.CreateEducationDto(u.Educations!),
+                    WorkExperiences = CreateClass.CreateWorkExperienceDto(u.WorkExperiences!)
                 })
                 .FirstOrDefaultAsync();
 
@@ -56,29 +56,5 @@ public class UserService(ResumeHandlerDbContext context)
         {
             return Response<UserDto>.Failure(ex.Message);
         }
-    }
-
-    private static List<EducationDto> CreateEducationDto(List<Education> educations)
-    {
-        return educations.Select(e => new EducationDto
-        {
-            SchoolName = e.SchoolName,
-            Degree = e.Degree,
-            Description = e.Description,
-            StartDate = e.StartDate,
-            EndDate = e.EndDate
-        }).ToList();
-    }
-
-    private static List<WorkExperienceDto> CreateWorkExperienceDto(List<WorkExperience> workExperiences)
-    {
-        return workExperiences.Select(w => new WorkExperienceDto
-        {
-            JobTitle = w.JobTitle,
-            CompanyName = w.CompanyName,
-            Description = w.Description,
-            StartDate = w.StartDate,
-            EndDate = w.EndDate
-        }).ToList();
     }
 }

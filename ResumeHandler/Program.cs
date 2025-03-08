@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ResumeHandler.Common;
 using ResumeHandler.Data;
 using ResumeHandler.Endpoints;
 using ResumeHandler.Models;

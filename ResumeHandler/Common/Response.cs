@@ -17,6 +17,8 @@ public class Response<T>
     public static Response<T?> Success(T? value) => new(OperationResult.Success, value, null);
     
     public static Response<T?> Failure(string error) => new(OperationResult.GeneralError, default, error);
+
+    public static Response<T?> ValidationError(string error) => new(OperationResult.ValidationError, default, error);
     
     public static Response<T?> NotFound(string error) => new(OperationResult.NotFound, default, error);
 }
