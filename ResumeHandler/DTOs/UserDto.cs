@@ -1,15 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ResumeHandler.Models;
 
 namespace ResumeHandler.DTOs;
 
 public class UserDto
 {
-    [Required]
     public required string FirstName { get; set; }
 
-    [Required]
     public required string LastName { get; set; }
 
-    [Required]
     public required string Description { get; set; }
+
+    public List<EducationDto>? Educations { get; set; }
+    
+    public List<WorkExperienceDto>? WorkExperiences { get; set; }
 }
