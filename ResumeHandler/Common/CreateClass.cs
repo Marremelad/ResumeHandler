@@ -37,7 +37,7 @@ public class CreateClass
     {
         return educations.Select(e => new EducationDto
         {
-            EducationId = e.Id,
+            Id = e.Id,
             SchoolName = e.SchoolName,
             Degree = e.Degree,
             Description = e.Description,
@@ -51,7 +51,7 @@ public class CreateClass
     {
         return new EducationDto
         {
-            EducationId = education.Id,
+            Id = education.Id,
             SchoolName = education.SchoolName,
             Degree = education.Degree,
             Description = education.Description,
@@ -64,6 +64,7 @@ public class CreateClass
     {
         return workExperiences.Select(w => new WorkExperienceDto
         {
+            Id = w.Id,
             JobTitle = w.JobTitle,
             CompanyName = w.CompanyName,
             Description = w.Description,
@@ -77,6 +78,7 @@ public class CreateClass
     {
         return new WorkExperienceDto
         {
+            Id = workExperience.Id,
             JobTitle = workExperience.JobTitle,
             CompanyName = workExperience.CompanyName,
             Description = workExperience.Description,

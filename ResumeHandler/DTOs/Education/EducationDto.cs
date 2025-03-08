@@ -5,7 +5,7 @@ namespace ResumeHandler.DTOs.Education;
 public class EducationDto
 {
     [Required]
-    public required int EducationId { get; set; }
+    public required int Id { get; set; }
     
     [Required]
     public required string SchoolName { get; set; }

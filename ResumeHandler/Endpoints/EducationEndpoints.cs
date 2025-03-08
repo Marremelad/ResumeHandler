@@ -21,6 +21,19 @@ public class EducationEndpoints
                 _ => Results.BadRequest(InvalidOperationMessage)
             };
         });
+
+        app.MapGet("/educations/{id:int}", async (EducationService educationService, int id) =>
+        {
+            var response = await educationService.GetEducation(id);
+
+            return response.OperationResult switch
+            {
+                OperationResult.Success => Results.Ok(response.Value),
+                OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
+                OperationResult.NotFound => Results.NotFound(response.Error),
+                _ => Results.BadRequest(InvalidOperationMessage)
+            };
+        });
         
         app.MapPost("/add-education", async (EducationService educationService, EducationCreateDto newEducation) =>
         {

@@ -22,6 +22,23 @@ public class EducationService(ResumeHandlerDbContext context)
             return Response<List<EducationDto>>.Failure(ex.Message);
         }
     }
+
+    public async Task<Response<EducationDto?>> GetEducation(int id)
+    {
+        try
+        {
+            var education = await context.Educations
+                .Where(e => e.Id == id)
+                .FirstOrDefaultAsync();
+
+            return education == null ? Response<EducationDto>.NotFound("Education not found") 
+                : Response<EducationDto>.Success(CreateClass.CreateEducationDto(education));
+        }
+        catch (Exception ex)
+        {
+            return Response<EducationDto>.Failure(ex.Message);
+        }
+    }
     
     public async Task<Response<EducationDto?>> CreateEducation(EducationCreateDto newEducation)
     {
@@ -69,15 +86,25 @@ public class EducationService(ResumeHandlerDbContext context)
 
             if (!isValid) return Response<EducationDto>.ValidationError(string.Join("; ", validationResult.Select(vr => vr.ErrorMessage)));
 
-            var education = await context.Educations.FindAsync(updatedEducation.EducationId);
+            var education = await context.Educations
+                .Where(e => e.Id == updatedEducation.Id)
+                .FirstOrDefaultAsync();
 
-            if (education == null) return Response<EducationDto>.NotFound($"Education with id {updatedEducation.EducationId} does not exist");
+            if (education == null) return Response<EducationDto>.NotFound($"Education with id {updatedEducation.Id} does not exist");
+            
+            var startDate = Helper.ConvertToDateOnly(updatedEducation.StartDate);
+            var endDate = Helper.ConvertToDateOnly(updatedEducation.EndDate!);
+        
+            if (endDate < startDate)
+            {
+                return Response<EducationDto>.ValidationError("End date can not be before start date");
+            }
 
             if (updatedEducation.SchoolName != "string") education.SchoolName = updatedEducation.SchoolName;
             if (updatedEducation.Degree != "string") education.Degree = updatedEducation.Degree;
             if (updatedEducation.Description != "string") education.Description = updatedEducation.Description;
-            education.StartDate = Helper.ConvertToDateOnly(updatedEducation.StartDate);
-            education.EndDate = Helper.ConvertToDateOnly(updatedEducation.EndDate!);
+            education.StartDate = startDate;
+            education.EndDate = endDate;
 
             await context.SaveChangesAsync();
 
