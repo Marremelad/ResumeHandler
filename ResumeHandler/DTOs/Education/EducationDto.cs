@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ResumeHandler.ValidationAttributes;
 
-namespace ResumeHandler.DTOs;
+namespace ResumeHandler.DTOs.Education;
 
-public class WorkExperienceDto
+public class EducationDto
 {
     [Required]
-    public required string JobTitle { get; set; }
+    public required string SchoolName { get; set; }
 
     [Required]
-    public required string CompanyName { get; set; }
+    public string? Degree { get; set; }
 
     [Required]
     public string? Description { get; set; }

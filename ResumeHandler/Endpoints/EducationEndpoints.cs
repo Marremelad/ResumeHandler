@@ -1,10 +1,11 @@
 ﻿using ResumeHandler.Common;
 using ResumeHandler.DTOs;
+using ResumeHandler.DTOs.Education;
 using ResumeHandler.Services;
 
 namespace ResumeHandler.Endpoints;
 
-public class EducationEndpoint
+public class EducationEndpoints
 {
     private const string InvalidOperationMessage = "Invalid operation status";
     

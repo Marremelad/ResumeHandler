@@ -3,7 +3,7 @@ using ResumeHandler.Services;
 
 namespace ResumeHandler.Endpoints;
 
-public class UserEndpoint
+public class UserEndpoints
 {
     private const string InvalidOperationMessage = "Invalid operation status";
 

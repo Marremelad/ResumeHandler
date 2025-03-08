@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ResumeHandler.Common;
 using ResumeHandler.Data;
-using ResumeHandler.DTOs;
+using ResumeHandler.DTOs.Education;
 
 namespace ResumeHandler.Services;
 

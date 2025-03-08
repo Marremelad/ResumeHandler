@@ -1,4 +1,6 @@
 ﻿using ResumeHandler.DTOs;
+using ResumeHandler.DTOs.Education;
+using ResumeHandler.DTOs.WorkExperience;
 using ResumeHandler.Models;
 
 namespace ResumeHandler.Common;
@@ -12,6 +14,19 @@ public class CreateClass
             UserIdFk = dto.UserId,
             SchoolName = dto.SchoolName,
             Degree = dto.Degree,
+            Description = dto.Description,
+            StartDate = startDate,
+            EndDate = endDate
+        };
+    }
+    
+    public static WorkExperience CreateWorkExperience(WorkExperienceCreateDto dto, DateOnly startDate, DateOnly endDate)
+    {
+        return new WorkExperience
+        {
+            UserIdFk = dto.UserId,
+            CompanyName = dto.CompanyName,
+            JobTitle = dto.JobTitle,
             Description = dto.Description,
             StartDate = startDate,
             EndDate = endDate
@@ -56,7 +71,7 @@ public class CreateClass
     }
 
     // Overloaded for single instance of WorkExperience object.
-    public static WorkExperienceDto CreateWorkExperienceDto(WorkExperienceDto workExperience)
+    public static WorkExperienceDto CreateWorkExperienceDto(WorkExperience workExperience)
     {
         return new WorkExperienceDto
         {

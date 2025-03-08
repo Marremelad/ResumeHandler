@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ResumeHandler.ValidationAttributes;
 
-namespace ResumeHandler.DTOs;
+namespace ResumeHandler.DTOs.Education;
 
 public class EducationCreateDto
 {
