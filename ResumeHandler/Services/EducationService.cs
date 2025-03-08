@@ -6,7 +6,7 @@ namespace ResumeHandler.Services;
 
 public class EducationService(ResumeHandlerDbContext context)
 {
-    public async void CreateEducation(EducationDto newEducation)
+    public async void CreateEducation(EducationCreateDto newEducation)
     {
         
     }

@@ -6,7 +6,7 @@ namespace ResumeHandler.DTOs;
 public class EducationCreateDto
 {
     [Required]
-    public required int UserIdFk { get; set; }
+    public required int UserId { get; set; }
     
     [Required]
     [StringLength(50)]
