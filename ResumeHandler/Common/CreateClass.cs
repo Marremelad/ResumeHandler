@@ -37,6 +37,7 @@ public class CreateClass
     {
         return educations.Select(e => new EducationDto
         {
+            EducationId = e.Id,
             SchoolName = e.SchoolName,
             Degree = e.Degree,
             Description = e.Description,
@@ -50,6 +51,7 @@ public class CreateClass
     {
         return new EducationDto
         {
+            EducationId = education.Id,
             SchoolName = education.SchoolName,
             Degree = education.Degree,
             Description = education.Description,
