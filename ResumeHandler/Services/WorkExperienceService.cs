@@ -57,8 +57,8 @@ public class WorkExperienceService(ResumeHandlerDbContext context)
 
             if (user == null) return Response<WorkExperienceDto>.NotFound($"User with id {newWorkExperience.UserId} does not exist");
 
-            var startDate = Helper.ConvertToDateOnly(newWorkExperience.StartDate);
-            var endDate = Helper.ConvertToDateOnly(newWorkExperience.EndDate!);
+            var startDate = Helper.ConvertToStartDateOnly(newWorkExperience.StartDate);
+            var endDate = Helper.ConvertToEndDateOnly(newWorkExperience.EndDate!);
 
             if (endDate == default(DateOnly)) return Response<WorkExperienceDto>.ValidationError("Invalid date format for end date. Try YYYY-mm-DD");
             
@@ -93,8 +93,8 @@ public class WorkExperienceService(ResumeHandlerDbContext context)
 
             if (workExperience == null) return Response<WorkExperienceDto>.NotFound($"Work experience with id {updatedWorkExperience.Id} does not exist");
 
-            var startDate = Helper.ConvertToDateOnly(updatedWorkExperience.StartDate);
-            var endDate = Helper.ConvertToDateOnly(updatedWorkExperience.EndDate!);
+            var startDate = Helper.ConvertToStartDateOnly(updatedWorkExperience.StartDate);
+            var endDate = Helper.ConvertToEndDateOnly(updatedWorkExperience.EndDate!);
 
             if (endDate == default(DateOnly)) return Response<WorkExperienceDto>.ValidationError("Invalid date format for end date. Try YYYY-mm-DD");
             

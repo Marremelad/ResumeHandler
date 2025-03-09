@@ -56,8 +56,8 @@ public class EducationService(ResumeHandlerDbContext context)
 
             if (user == null) return Response<EducationDto>.NotFound($"User with id {newEducation.UserId} does not exist");
             
-            var startDate = Helper.ConvertToDateOnly(newEducation.StartDate);
-            var endDate = Helper.ConvertToDateOnly(newEducation.EndDate!);
+            var startDate = Helper.ConvertToStartDateOnly(newEducation.StartDate);
+            var endDate = Helper.ConvertToEndDateOnly(newEducation.EndDate!);
             
             if (endDate == default(DateOnly)) return Response<EducationDto>.ValidationError("Invalid date format for end date. Try YYYY-mm-DD");
             
@@ -91,8 +91,8 @@ public class EducationService(ResumeHandlerDbContext context)
 
             if (education == null) return Response<EducationDto>.NotFound($"Education with id {updatedEducation.Id} does not exist");
             
-            var startDate = Helper.ConvertToDateOnly(updatedEducation.StartDate);
-            var endDate = Helper.ConvertToDateOnly(updatedEducation.EndDate!);
+            var startDate = Helper.ConvertToStartDateOnly(updatedEducation.StartDate);
+            var endDate = Helper.ConvertToEndDateOnly(updatedEducation.EndDate!);
         
             if (endDate == default(DateOnly)) return Response<EducationDto>.ValidationError("Invalid date format for end date. Try YYYY-mm-DD");
             

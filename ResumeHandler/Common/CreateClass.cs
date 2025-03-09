@@ -6,7 +6,7 @@ namespace ResumeHandler.Common;
 
 public class CreateClass
 {
-    public static Education CreateEducation(EducationCreateDto dto, DateOnly? startDate, DateOnly? endDate)
+    public static Education CreateEducation(EducationCreateDto dto, DateOnly startDate, DateOnly? endDate)
     {
         return new Education
         {
@@ -19,7 +19,7 @@ public class CreateClass
         };
     }
     
-    public static WorkExperience CreateWorkExperience(WorkExperienceCreateDto dto, DateOnly? startDate, DateOnly? endDate)
+    public static WorkExperience CreateWorkExperience(WorkExperienceCreateDto dto, DateOnly startDate, DateOnly? endDate)
     {
         return new WorkExperience
         {
