@@ -1,5 +1,4 @@
-﻿
-namespace ResumeHandler.Common;
+﻿namespace ResumeHandler.Common;
 
 public class Response<T>
 { 

@@ -1,6 +1,4 @@
-﻿using ResumeHandler.Data;
-
-namespace ResumeHandler.Common;
+﻿namespace ResumeHandler.Common;
 
 public class Helper
 {
