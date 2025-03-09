@@ -45,7 +45,7 @@ public class Program
         UserEndpoints.RegisterEndpoints(app);
         EducationEndpoints.RegisterEndpoints(app);
         WorkExperienceEndpoints.RegisterEndpoints(app);
-        GithubEndpoints.RegisterEndpoints(app);
+        GitHubEndpoints.RegisterEndpoints(app);
         
         app.Run();
     }

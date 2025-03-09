@@ -3,13 +3,13 @@ using ResumeHandler.DTOs;
 
 namespace ResumeHandler.Endpoints;
 
-public class GithubEndpoints
+public class GitHubEndpoints
 {
     public static void RegisterEndpoints(WebApplication app)
     {
         app.MapGet("/github-repos/{username}", async (HttpClient client, string username) => {
 
-            client.DefaultRequestHeaders.UserAgent.ParseAdd("CSharpApp"); // GitHub requires User-Agent
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("CSharpApp");
 
             var response = await client.GetAsync($"https://api.github.com/users/{username}/repos");
 
@@ -22,10 +22,10 @@ public class GithubEndpoints
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
             var data = JsonSerializer.Deserialize<List<RepositoryDto>>(json, options);
-
-            data?.ForEach(d => d.Language ??= "No registered language");
-            data?.ForEach(d => d.Description ??= "No description available. Visit the repository to learn more");
-
+            
+            data?.ForEach(d => { d.Language ??= "No registered language"; 
+                d.Description ??= "No description available. Visit the repository to learn more"; });
+            
             return Results.Ok(data);
         });
     }
