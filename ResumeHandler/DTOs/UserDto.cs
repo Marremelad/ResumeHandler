@@ -9,6 +9,8 @@ public class UserDto
 
     public required string LastName { get; set; }
 
+    public required string Email { get; set; }
+
     public required string Description { get; set; }
 
     public List<EducationDto>? Educations { get; set; }

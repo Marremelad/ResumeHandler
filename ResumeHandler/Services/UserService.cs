@@ -18,6 +18,7 @@ public class UserService(ResumeHandlerDbContext context)
                 {
                     FirstName = u.FirstName,
                     LastName = u.LastName,
+                    Email = u.Email,
                     Description = u.Description,
                     Educations = CreateClass.CreateEducationDto(u.Educations!),
                     WorkExperiences = CreateClass.CreateWorkExperienceDto(u.WorkExperiences!)
@@ -42,6 +43,7 @@ public class UserService(ResumeHandlerDbContext context)
                 {
                     FirstName = u.FirstName,
                     LastName = u.LastName,
+                    Email = u.Email,
                     Description = u.Description,
                     Educations = CreateClass.CreateEducationDto(u.Educations!),
                     WorkExperiences = CreateClass.CreateWorkExperienceDto(u.WorkExperiences!)
