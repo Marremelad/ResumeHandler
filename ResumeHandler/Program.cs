@@ -23,6 +23,8 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
 
+        builder.Services.AddHttpClient();
+
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<EducationService>();
         builder.Services.AddScoped<WorkExperienceService>();
@@ -43,6 +45,7 @@ public class Program
         UserEndpoints.RegisterEndpoints(app);
         EducationEndpoints.RegisterEndpoints(app);
         WorkExperienceEndpoints.RegisterEndpoints(app);
+        GithubEndpoints.RegisterEndpoints(app);
         
         app.Run();
     }
