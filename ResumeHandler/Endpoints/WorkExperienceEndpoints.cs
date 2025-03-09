@@ -18,7 +18,7 @@ public class WorkExperienceEndpoints
             {
                 OperationResult.Success => Results.Ok(response.Value),
                 OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
-                _ => Results.BadRequest(InvalidOperationMessage)
+                _ => Results.Problem(InvalidOperationMessage)
             };
         });
 
@@ -45,7 +45,7 @@ public class WorkExperienceEndpoints
                 OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
                 OperationResult.ValidationError => Results.BadRequest(response.Error),
                 OperationResult.NotFound => Results.NotFound(response.Error),
-                _ => Results.BadRequest(InvalidOperationMessage)
+                _ => Results.Problem(InvalidOperationMessage)
             };
         });
 
@@ -59,7 +59,7 @@ public class WorkExperienceEndpoints
                 OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
                 OperationResult.ValidationError => Results.BadRequest(response.Error),
                 OperationResult.NotFound => Results.NotFound(response.Error),
-                _ => Results.BadRequest(InvalidOperationMessage)
+                _ => Results.Problem(InvalidOperationMessage)
             };
         });
     }

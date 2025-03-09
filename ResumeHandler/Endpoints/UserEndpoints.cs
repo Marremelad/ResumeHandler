@@ -17,7 +17,7 @@ public class UserEndpoints
             {
                 OperationResult.Success => Results.Ok(response.Value),
                 OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
-                _ => Results.BadRequest(InvalidOperationMessage)
+                _ => Results.Problem(InvalidOperationMessage)
             };
         });
         
@@ -30,7 +30,7 @@ public class UserEndpoints
                 OperationResult.Success => Results.Ok(response.Value),
                 OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
                 OperationResult.NotFound => Results.NotFound(response.Error),
-                _ => Results.BadRequest(InvalidOperationMessage)
+                _ => Results.Problem(InvalidOperationMessage)
             };
         });
     }
