@@ -2,7 +2,6 @@
 using ResumeHandler.Common;
 using ResumeHandler.Data;
 using ResumeHandler.DTOs;
-using ResumeHandler.Models;
 
 namespace ResumeHandler.Services;
 
