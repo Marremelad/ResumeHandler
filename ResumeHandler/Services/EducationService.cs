@@ -40,7 +40,7 @@ public class EducationService(ResumeHandlerDbContext context)
         }
     }
     
-    public async Task<Response<EducationDto?>> CreateEducation(EducationCreateDto newEducation)
+    public async Task<Response<EducationDto?>> AddEducation(EducationCreateDto newEducation)
     {
         try
         {
@@ -68,6 +68,27 @@ public class EducationService(ResumeHandlerDbContext context)
             context.Educations.Add(education);
             await context.SaveChangesAsync();
             
+            return Response<EducationDto>.Success(CreateClass.CreateEducationDto(education));
+        }
+        catch (Exception ex)
+        {
+            return Response<EducationDto>.Failure(ex.Message);
+        }
+    }
+
+    public async Task<Response<EducationDto?>> RemoveEducation(int id)
+    {
+        try
+        {
+            var education = await context.Educations
+                .Where(e => e.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (education == null) return Response<EducationDto>.NotFound("Education not found");
+
+            context.Educations.Remove(education);
+            await context.SaveChangesAsync();
+
             return Response<EducationDto>.Success(CreateClass.CreateEducationDto(education));
         }
         catch (Exception ex)

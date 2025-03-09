@@ -41,7 +41,7 @@ public class WorkExperienceService(ResumeHandlerDbContext context)
         }
     }
     
-    public async Task<Response<WorkExperienceDto?>> CreateWorkExperience(WorkExperienceCreateDto newWorkExperience)
+    public async Task<Response<WorkExperienceDto?>> AddWorkExperience(WorkExperienceCreateDto newWorkExperience)
     {
         try
         {
@@ -77,7 +77,28 @@ public class WorkExperienceService(ResumeHandlerDbContext context)
             return Response<WorkExperienceDto>.Failure(ex.Message);
         }
     }
+    
+    public async Task<Response<WorkExperienceDto?>> RemoveWorkExperience(int id)
+    {
+        try
+        {
+            var workExperience = await context.WorkExperiences
+                .Where(w => w.Id == id)
+                .FirstOrDefaultAsync();
 
+            if (workExperience == null) return Response<WorkExperienceDto>.NotFound("Work experience not found");
+
+            context.WorkExperiences.Remove(workExperience);
+            await context.SaveChangesAsync();
+
+            return Response<WorkExperienceDto>.Success(CreateClass.CreateWorkExperienceDto(workExperience));
+        }
+        catch (Exception ex)
+        {
+            return Response<WorkExperienceDto>.Failure(ex.Message);
+        }
+    }
+    
     public async Task<Response<WorkExperienceDto?>> UpdateWorkExperience(WorkExperienceUpdateDto updatedWorkExperience)
     {
         try

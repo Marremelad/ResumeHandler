@@ -37,7 +37,7 @@ public class EducationEndpoints
         
         app.MapPost("/add-education", async (EducationService educationService, EducationCreateDto newEducation) =>
         {
-            var response = await educationService.CreateEducation(newEducation);
+            var response = await educationService.AddEducation(newEducation);
 
             return response.OperationResult switch
             {
@@ -48,7 +48,7 @@ public class EducationEndpoints
                 _ => Results.Problem(InvalidOperationMessage)
             };
         });
-
+        
         app.MapPut("/update-education", async (EducationService educationService, EducationUpdateDto updatedEducation) =>
         {
             var response = await educationService.UpdateEducation(updatedEducation);
@@ -58,6 +58,19 @@ public class EducationEndpoints
                 OperationResult.Success => Results.Ok(response.Value),
                 OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
                 OperationResult.ValidationError => Results.BadRequest(response.Error),
+                OperationResult.NotFound => Results.NotFound(response.Error),
+                _ => Results.Problem(InvalidOperationMessage)
+            };
+        });
+        
+        app.MapDelete("/remove-educations/{id:int}", async (EducationService educationService, int id) =>
+        {
+            var response = await educationService.RemoveEducation(id);
+
+            return response.OperationResult switch
+            {
+                OperationResult.Success => Results.Ok(response.Value),
+                OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
                 OperationResult.NotFound => Results.NotFound(response.Error),
                 _ => Results.Problem(InvalidOperationMessage)
             };

@@ -31,13 +31,13 @@ public class WorkExperienceEndpoints
                 OperationResult.Success => Results.Ok(response.Value),
                 OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
                 OperationResult.NotFound => Results.NotFound(response.Error),
-                _ => Results.Problem(InvalidOperationMessage) // Change for all other endpoints.
+                _ => Results.Problem(InvalidOperationMessage)
             };
         });
         
         app.MapPost("/add-work-experience", async (WorkExperienceService workExperienceService, WorkExperienceCreateDto newWorkExperience) =>
         {
-            var response = await workExperienceService.CreateWorkExperience(newWorkExperience);
+            var response = await workExperienceService.AddWorkExperience(newWorkExperience);
 
             return response.OperationResult switch
             {
@@ -48,7 +48,7 @@ public class WorkExperienceEndpoints
                 _ => Results.Problem(InvalidOperationMessage)
             };
         });
-
+        
         app.MapPut("/update-work-experience", async (WorkExperienceService workExperienceService, WorkExperienceUpdateDto updatedWorkExperience) =>
         {
             var response = await workExperienceService.UpdateWorkExperience(updatedWorkExperience);
@@ -58,6 +58,19 @@ public class WorkExperienceEndpoints
                 OperationResult.Success => Results.Ok(response.Value),
                 OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
                 OperationResult.ValidationError => Results.BadRequest(response.Error),
+                OperationResult.NotFound => Results.NotFound(response.Error),
+                _ => Results.Problem(InvalidOperationMessage)
+            };
+        });
+        
+        app.MapDelete("/remove-work-experiences/{id:int}", async (WorkExperienceService workExperienceService, int id) =>
+        {
+            var response = await workExperienceService.RemoveWorkExperience(id);
+
+            return response.OperationResult switch
+            {
+                OperationResult.Success => Results.Ok(response.Value),
+                OperationResult.GeneralError => Results.Problem(response.Error, statusCode: 500),
                 OperationResult.NotFound => Results.NotFound(response.Error),
                 _ => Results.Problem(InvalidOperationMessage)
             };
