@@ -23,8 +23,6 @@ public class WorkExperienceCreateDto
     [Required]
     [ValidStartDate]
     public required string StartDate { get; set; }
-
-    [Required]
-    [ValidEndDate]
+    
     public string? EndDate { get; set; }
 }

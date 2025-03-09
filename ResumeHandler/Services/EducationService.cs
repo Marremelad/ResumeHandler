@@ -58,11 +58,10 @@ public class EducationService(ResumeHandlerDbContext context)
             
             var startDate = Helper.ConvertToDateOnly(newEducation.StartDate);
             var endDate = Helper.ConvertToDateOnly(newEducation.EndDate!);
-        
-            if (endDate < startDate)
-            {
-                return Response<EducationDto>.ValidationError("End date can not be before start date");
-            }
+            
+            if (endDate == default(DateOnly)) return Response<EducationDto>.ValidationError("Invalid date format for end date. Try YYYY-mm-DD");
+            
+            if (endDate < startDate) return Response<EducationDto>.ValidationError("End date can not be before start date");
 
             var education = CreateClass.CreateEducation(newEducation, startDate, endDate);
             context.Educations.Add(education);
@@ -75,28 +74,7 @@ public class EducationService(ResumeHandlerDbContext context)
             return Response<EducationDto>.Failure(ex.Message);
         }
     }
-
-    public async Task<Response<EducationDto?>> RemoveEducation(int id)
-    {
-        try
-        {
-            var education = await context.Educations
-                .Where(e => e.Id == id)
-                .FirstOrDefaultAsync();
-
-            if (education == null) return Response<EducationDto>.NotFound("Education not found");
-
-            context.Educations.Remove(education);
-            await context.SaveChangesAsync();
-
-            return Response<EducationDto>.Success(CreateClass.CreateEducationDto(education));
-        }
-        catch (Exception ex)
-        {
-            return Response<EducationDto>.Failure(ex.Message);
-        }
-    }
-
+    
     public async Task<Response<EducationDto?>> UpdateEducation(EducationUpdateDto updatedEducation)
     {
         try
@@ -116,10 +94,9 @@ public class EducationService(ResumeHandlerDbContext context)
             var startDate = Helper.ConvertToDateOnly(updatedEducation.StartDate);
             var endDate = Helper.ConvertToDateOnly(updatedEducation.EndDate!);
         
-            if (endDate < startDate)
-            {
-                return Response<EducationDto>.ValidationError("End date can not be before start date");
-            }
+            if (endDate == default(DateOnly)) return Response<EducationDto>.ValidationError("Invalid date format for end date. Try YYYY-mm-DD");
+            
+            if (endDate < startDate) return Response<EducationDto>.ValidationError("End date can not be before start date");
 
             if (updatedEducation.SchoolName != "string") education.SchoolName = updatedEducation.SchoolName;
             if (updatedEducation.Degree != "string") education.Degree = updatedEducation.Degree;
@@ -127,6 +104,27 @@ public class EducationService(ResumeHandlerDbContext context)
             education.StartDate = startDate;
             education.EndDate = endDate;
 
+            await context.SaveChangesAsync();
+
+            return Response<EducationDto>.Success(CreateClass.CreateEducationDto(education));
+        }
+        catch (Exception ex)
+        {
+            return Response<EducationDto>.Failure(ex.Message);
+        }
+    }
+    
+    public async Task<Response<EducationDto?>> RemoveEducation(int id)
+    {
+        try
+        {
+            var education = await context.Educations
+                .Where(e => e.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (education == null) return Response<EducationDto>.NotFound("Education not found");
+
+            context.Educations.Remove(education);
             await context.SaveChangesAsync();
 
             return Response<EducationDto>.Success(CreateClass.CreateEducationDto(education));

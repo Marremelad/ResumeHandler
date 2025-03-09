@@ -24,7 +24,6 @@ public class EducationCreateDto
     [ValidStartDate]
     public required string StartDate { get; set; } // Was set to DateOnly.
 
-    [Required]
-    [ValidEndDate]
+    // [ValidEndDate]
     public string? EndDate { get; set; } // Was set to DateOnly.
 }

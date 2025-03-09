@@ -16,7 +16,7 @@ public class WorkExperienceDto
     public string? Description { get; set; }
 
     [Required]
-    public required DateOnly StartDate { get; set; }
+    public required DateOnly? StartDate { get; set; }
 
     [Required]
     public DateOnly? EndDate { get; set; }

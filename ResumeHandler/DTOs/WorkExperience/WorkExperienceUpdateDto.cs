@@ -24,7 +24,6 @@ public class WorkExperienceUpdateDto
     [ValidStartDate]
     public required string StartDate { get; set; }
 
-    [Required]
-    [ValidEndDate]
+    // [ValidEndDate]
     public string? EndDate { get; set; }
 }

@@ -59,36 +59,14 @@ public class WorkExperienceService(ResumeHandlerDbContext context)
 
             var startDate = Helper.ConvertToDateOnly(newWorkExperience.StartDate);
             var endDate = Helper.ConvertToDateOnly(newWorkExperience.EndDate!);
-            
-            if (endDate < startDate)
-            {
-                return Response<WorkExperienceDto>.ValidationError("End date can not be before start date");
-            }
 
+            if (endDate == default(DateOnly)) return Response<WorkExperienceDto>.ValidationError("Invalid date format for end date. Try YYYY-mm-DD");
+            
+            if (endDate < startDate) return Response<WorkExperienceDto>.ValidationError("End date can not be before start date");
+            
             var workExperience = CreateClass.CreateWorkExperience(newWorkExperience, startDate, endDate);
 
             context.WorkExperiences.Add(workExperience);
-            await context.SaveChangesAsync();
-
-            return Response<WorkExperienceDto>.Success(CreateClass.CreateWorkExperienceDto(workExperience));
-        }
-        catch (Exception ex)
-        {
-            return Response<WorkExperienceDto>.Failure(ex.Message);
-        }
-    }
-    
-    public async Task<Response<WorkExperienceDto?>> RemoveWorkExperience(int id)
-    {
-        try
-        {
-            var workExperience = await context.WorkExperiences
-                .Where(w => w.Id == id)
-                .FirstOrDefaultAsync();
-
-            if (workExperience == null) return Response<WorkExperienceDto>.NotFound("Work experience not found");
-
-            context.WorkExperiences.Remove(workExperience);
             await context.SaveChangesAsync();
 
             return Response<WorkExperienceDto>.Success(CreateClass.CreateWorkExperienceDto(workExperience));
@@ -117,11 +95,10 @@ public class WorkExperienceService(ResumeHandlerDbContext context)
 
             var startDate = Helper.ConvertToDateOnly(updatedWorkExperience.StartDate);
             var endDate = Helper.ConvertToDateOnly(updatedWorkExperience.EndDate!);
+
+            if (endDate == default(DateOnly)) return Response<WorkExperienceDto>.ValidationError("Invalid date format for end date. Try YYYY-mm-DD");
             
-            if (endDate < startDate)
-            {
-                return Response<WorkExperienceDto>.ValidationError("End date can not be before start date");
-            }
+            if (endDate < startDate) return Response<WorkExperienceDto>.ValidationError("End date can not be before start date");
             
             if (updatedWorkExperience.JobTitle != "string") workExperience.JobTitle = updatedWorkExperience.JobTitle;
             if (updatedWorkExperience.CompanyName != "string") workExperience.CompanyName = updatedWorkExperience.CompanyName;
@@ -129,6 +106,27 @@ public class WorkExperienceService(ResumeHandlerDbContext context)
             workExperience.StartDate = startDate;
             workExperience.EndDate = endDate;
 
+            await context.SaveChangesAsync();
+
+            return Response<WorkExperienceDto>.Success(CreateClass.CreateWorkExperienceDto(workExperience));
+        }
+        catch (Exception ex)
+        {
+            return Response<WorkExperienceDto>.Failure(ex.Message);
+        }
+    }
+    
+    public async Task<Response<WorkExperienceDto?>> RemoveWorkExperience(int id)
+    {
+        try
+        {
+            var workExperience = await context.WorkExperiences
+                .Where(w => w.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (workExperience == null) return Response<WorkExperienceDto>.NotFound("Work experience not found");
+
+            context.WorkExperiences.Remove(workExperience);
             await context.SaveChangesAsync();
 
             return Response<WorkExperienceDto>.Success(CreateClass.CreateWorkExperienceDto(workExperience));
