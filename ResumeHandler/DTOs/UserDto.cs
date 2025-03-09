@@ -1,6 +1,5 @@
 ﻿using ResumeHandler.DTOs.Education;
 using ResumeHandler.DTOs.WorkExperience;
-using ResumeHandler.Models;
 
 namespace ResumeHandler.DTOs;
 
