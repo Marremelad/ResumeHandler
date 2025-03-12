@@ -3,7 +3,8 @@ using ResumeHandler.Models;
 
 namespace ResumeHandler.Data;
 
-public class ResumeHandlerDbContext(DbContextOptions<ResumeHandlerDbContext> options) : DbContext(options)
+public class ResumeHandlerDbContext(DbContextOptions<ResumeHandlerDbContext> options) 
+    : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
     
